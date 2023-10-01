@@ -1,3 +1,4 @@
+// sample books 
 const books = () => {
 fetch('https://simple-books-api.glitch.me/books').then(
     function(response){
@@ -12,6 +13,7 @@ fetch('https://simple-books-api.glitch.me/books').then(
 });
 };
 
+// suggest an activity when bored
 const bored = () =>{
     fetch('https://www.boredapi.com/api/activity').then(
     function(response){
@@ -42,6 +44,7 @@ const dogs = () =>{
 });
 };
 
+// cat images
 const cats = () =>{
     fetch('https://api.thecatapi.com/v1/images/search').then(
     function(response){
@@ -56,4 +59,22 @@ const cats = () =>{
 });
 };
 
-cats(); 
+// nationalize: guess nationality based on name
+const nationalize = () =>{
+    const name = 'wodoame';
+    fetch('https://api.nationalize.io?name=' + name).then(
+    function(response){
+        return response.json(); 
+    }
+).then(
+    function(data){
+    console.log(data);
+    }
+).catch(function(error){
+    console.log(error);
+});
+};
+
+
+
+nationalize(); 

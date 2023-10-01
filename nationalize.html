@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find nationality by name</title>
+    <link rel="stylesheet" href="../../bootstrap-5.3.2-dist/css/bootstrap.min.css">
+
+    <style>
+        /*
+        @font-face {
+            font-family: 'CustomFont';
+            src: url('/fonts/custom-font.woff2') format('woff2'),
+                 url('/fonts/custom-font.woff') format('woff');
+                 // personaly the format() prevented it from working
+            //Add more src lines for other formats if available
+
+        }
+        
+        body {
+            font-family: 'CustomFont', sans-serif;  / / Use the custom font 
+        }
+        */
+        @font-face {
+            font-family: 'Poppins';
+            src: url('../../fonts/Poppins/Poppins-Light.ttf');
+        }
+        
+        body{
+            background:whitesmoke;
+        }
+        .card{
+            width:500px;
+            height:500px;
+            padding:10px;
+            font-size:90%;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        
+        .spinner {
+            width: 4.8px;
+            height: 4.8px;
+            margin-top: 20px; 
+            margin-bottom: 15px;
+            border-radius: 4.8px;
+            margin-inline:auto;
+            box-shadow: 12px 0px 0 0 rgba(71,75,255,0.2), 9.7px 7.1px 0 0 rgba(71,75,255,0.4), 3.7199999999999998px 11.4px 0 0 rgba(71,75,255,0.6), -3.7199999999999998px 11.4px 0 0 rgba(71,75,255,0.8), -9.7px 7.1px 0 0 #474bff;
+            animation: spinner-b87k6z 1s infinite linear;
+         }
+         
+         @keyframes spinner-b87k6z {
+            to {
+               transform: rotate(360deg);
+            }
+         }
+
+        .none{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+     <div class="d-flex justify-content-center mt-5">
+        <div class="card">
+            <div class="card-row">
+                <div class="alert alert-primary">Enter your firstname/lastname only and I'll guess your country</div>
+            </div>
+            <div class="card-row">
+                <input type="text" class="form-control" id="name">
+            </div>
+            
+            <div class="card-row d-flex justify-content-center">
+                <div class="spinner none" id="spinner-1"></div>
+            </div>
+            <div class="card-row text-center">
+                <button class="btn btn-primary mt-2" onclick="nationalize()">Guess</button>
+            </div>
+
+            <div class="card-row mt-auto">
+                <textarea  class="form-control" disabled cols="30" rows="10" id="result"></textarea>
+            </div>
+        </div>
+     </div>
+
+     <script>
+        const activate_spinner = (spinner_id) => {
+            document.getElementById(spinner_id).classList.remove('none');
+        };
+
+        const deactivate_spinner = (spinner_id) => {
+            document.getElementById(spinner_id).classList.add('none');
+        };
+
+        const nationalize = () => {
+            activate_spinner('spinner-1')
+            const name = document.getElementById('name').value;
+            const result_area = document.getElementById('result');
+            let final_value = '';
+            fetch('https://api.nationalize.io?name=' + name).then(
+            function(response){
+                return response.json(); 
+            }
+        ).then(
+            function(data){
+             for(let item of data.country){
+                final_value += `\n${item.country_id},   probability: ${item.probability}`;
+             }
+             result_area.value = final_value;
+             deactivate_spinner('spinner-1');
+            }
+        ).catch(function(error){
+            console.log(error);
+        });
+        };
+        
+
+     </script>
+</body>
+</html>
