@@ -67,14 +67,14 @@
                 <div class="alert alert-primary">Enter your firstname/lastname only and I'll guess your country</div>
             </div>
             <div class="card-row">
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" id="name" onkeydown="check(event)">
             </div>
             
             <div class="card-row d-flex justify-content-center">
                 <div class="spinner none" id="spinner-1"></div>
             </div>
             <div class="card-row text-center">
-                <button class="btn btn-primary mt-2" onclick="nationalize()">Guess</button>
+                <button class="btn btn-primary mt-2"  type="button" onclick="nationalize()">Guess</button>
             </div>
 
             <div class="card-row mt-auto">
@@ -114,6 +114,9 @@
         });
         };
         
+        const check = (event) => {
+            if(event.key == 'Enter')nationalize();
+        }
 
      </script>
 </body>
