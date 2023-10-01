@@ -6,7 +6,13 @@
     <title>dogs</title>
     <link rel="stylesheet" href="../../bootstrap-5.3.2-dist/css/bootstrap.min.css">
     <style>
+
+        @font-face {
+            font-family: 'Poppins';
+            src: url('../../fonts/Poppins/Poppins-Medium.ttf');
+        }
         body{
+            font-family: 'Poppins', sans-serif;
             background:whitesmoke;
         }
         .card{
@@ -67,9 +73,9 @@
                         <div class="spinner none" id="spinner-1"></div>
                     </div>
             </div>
-            <button class="btn btn-primary mt-2" onclick="dogs()">Next</button>
+            <button class="btn btn-outline-primary rounded-pill mt-2" onclick="dogs()">Next</button>
             <br>
-            <button  class="btn btn-primary mt-4" onclick="refresh()">Refresh</button>
+            <button  class="btn btn-outline-dark rounded-pill mt-4" onclick="refresh()">Refresh</button>
         </div>
 
         <div>
@@ -83,7 +89,26 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary mt-2" onclick="cats()">Next</button>
+            <button class="btn btn-outline-primary rounded-pill mt-2" onclick="cats()">Next</button>
+        </div>
+
+        <div>
+            <div class="spinner-card-wrapper">
+                <div class="card p-2 d-flex flex-column shadow-sm">
+                    <h5 class="text-center">Feeling bored today ?</h5>
+                    <div class="flex-grow-1">
+                        <div class="alert alert-warning h-100" id="activity">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spinner-wrapper">
+                    <div class="spinner none" id="spinner-3"></div>
+                </div>
+            </div>
+
+
+            <button class="btn btn-outline-dark rounded-pill mt-2" onclick="bored()">Next</button>
         </div>
 
       </div>
@@ -129,9 +154,26 @@
         });
         };
 
+        const bored = () =>{
+            activate_spinner('spinner-3');
+            fetch('https://www.boredapi.com/api/activity').then(
+            function(response){
+                return response.json(); 
+            }
+        ).then(
+            function(data){
+            document.getElementById('activity').innerText = `Activity: ${data.activity}\n\nType: ${data.type}\n\nParticipants: ${data.participants}`;
+            deactivate_spinner('spinner-3');
+            }
+        ).catch(function(error){
+            console.log(error);
+        });
+        };
+
         const refresh = () =>{
             dogs(); 
             cats();
+            bored();
         };
 
         refresh();
