@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dogs</title>
+    <link rel="stylesheet" href="../../bootstrap-5.3.2-dist/css/bootstrap.min.css">
+    <style>
+        body{
+            background:whitesmoke;
+        }
+        .card{
+            width:300px;
+            height:300px;
+        }
+
+        img{
+            max-width: 100%;
+            max-height:100%;
+            object-fit: cover;
+        }
+
+        .spinner {
+            width: 4.8px;
+            height: 4.8px;
+            margin-top: 20px; 
+            margin-bottom: 15px;
+            border-radius: 4.8px;
+            margin-inline:auto;
+            box-shadow: 12px 0px 0 0 rgba(71,75,255,0.2), 9.7px 7.1px 0 0 rgba(71,75,255,0.4), 3.7199999999999998px 11.4px 0 0 rgba(71,75,255,0.6), -3.7199999999999998px 11.4px 0 0 rgba(71,75,255,0.8), -9.7px 7.1px 0 0 #474bff;
+            animation: spinner-b87k6z 1s infinite linear;
+         }
+         
+         @keyframes spinner-b87k6z {
+            to {
+               transform: rotate(360deg);
+            }
+         }
+
+        .none{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+      <div class="d-flex gap-2 justify-content-center mt-5">
+        <div>
+            <div class="card shadow-sm">
+                 <img src="" class="img-thumbnail dog-image" alt="">
+            </div>
+
+            <div class="spinner none" id="spinner-1"></div>
+            <button class="btn btn-primary mt-2" onclick="dogs()">Next</button>
+            <br>
+            <button  class="btn btn-primary mt-4" onclick="refresh()">Refresh</button>
+        </div>
+
+        <div>
+            <div class="card shadow-sm">
+                 <img src="" class="img-thumbnail cat-image" alt="">
+            </div>
+
+            <div class="spinner none" id="spinner-2"></div>
+            <button class="btn btn-primary mt-2" onclick="cats()">Next</button>
+        </div>
+
+      </div>
+
+      <script>
+        const activate_spinner = (spinner_id) => {
+            document.getElementById(spinner_id).classList.remove('none');
+        };
+
+        const deactivate_spinner = (spinner_id) => {
+            document.getElementById(spinner_id).classList.add('none');
+        };
+
+        const dogs = () =>{
+            activate_spinner('spinner-1');
+            fetch('https://dog.ceo/api/breeds/image/random').then(
+            function(response){
+                return response.json(); 
+            }
+        ).then(
+            function(data){
+                document.querySelector('.dog-image').src = data.message;
+                deactivate_spinner('spinner-1');
+            }
+        ).catch(function(error){
+            console.log(error);
+        });
+        };
+
+        const cats = () =>{
+            activate_spinner('spinner-2');
+            fetch('https://api.thecatapi.com/v1/images/search').then(
+            function(response){
+                return response.json(); 
+            }
+        ).then(
+            function(data){
+                document.querySelector('.cat-image').src = data[0].url;
+                deactivate_spinner('spinner-2');
+            }
+        ).catch(function(error){
+            console.log(error);
+        });
+        };
+
+        const refresh = () =>{
+            dogs(); 
+            cats();
+        };
+
+        refresh();
+
+      </script>
+</body>
+</html>
