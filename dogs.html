@@ -37,6 +37,18 @@
             }
          }
 
+         .spinner-wrapper{
+            position:absolute;
+            width:100%;
+         }
+
+         .spinner-card-wrapper{
+            position:relative; 
+            display:flex; 
+            flex-direction: column;
+            justify-content: center;
+         }
+
         .none{
             display:none;
         }
@@ -45,22 +57,32 @@
 <body>
       <div class="d-flex gap-2 justify-content-center mt-5">
         <div>
-            <div class="card shadow-sm">
-                 <img src="" class="img-thumbnail dog-image" alt="">
-            </div>
+            <div class="spinner-card-wrapper">
+                <div class="card shadow-sm">
+                     <img src="" class="img-thumbnail dog-image" alt="">
+                </div>
 
-            <div class="spinner none" id="spinner-1"></div>
+
+                    <div class="spinner-wrapper">
+                        <div class="spinner none" id="spinner-1"></div>
+                    </div>
+            </div>
             <button class="btn btn-primary mt-2" onclick="dogs()">Next</button>
             <br>
             <button  class="btn btn-primary mt-4" onclick="refresh()">Refresh</button>
         </div>
 
         <div>
-            <div class="card shadow-sm">
-                 <img src="" class="img-thumbnail cat-image" alt="">
+            
+            <div class="spinner-card-wrapper">
+                <div class="card shadow-sm">
+                     <img src="" class="img-thumbnail cat-image" alt="">
+                </div>
+                <div class="spinner-wrapper">
+                    <div class="spinner none" id="spinner-2"></div>
+                </div>
             </div>
 
-            <div class="spinner none" id="spinner-2"></div>
             <button class="btn btn-primary mt-2" onclick="cats()">Next</button>
         </div>
 
