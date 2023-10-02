@@ -76,5 +76,19 @@ const nationalize = () =>{
 };
 
 
+// random: get random images
+const random = () =>{
+    fetch('https://random.imagecdn.app/v1/image?width=500&height=150&category=buildings&format=json').then(
+    function(response){
+        return response.json();
+    }
+).then(
+    function(data){
+    console.log(data);
+    }
+).catch(function(error){
+    console.log(error);
+});
+};
 
-bored(); 
+random();

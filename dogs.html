@@ -73,9 +73,9 @@
                         <div class="spinner none" id="spinner-1"></div>
                     </div>
             </div>
-            <button class="btn btn-outline-primary rounded-pill mt-2" onclick="dogs()">Next</button>
+            <button class="btn btn-outline-dark shadow rounded-pill mt-2" onclick="dogs()">Next</button>
             <br>
-            <button  class="btn btn-outline-dark rounded-pill mt-4" onclick="refresh()">Refresh</button>
+            <button  class="btn btn-outline-dark shadow rounded-pill mt-4" onclick="refresh()">Refresh</button>
         </div>
 
         <div>
@@ -89,13 +89,14 @@
                 </div>
             </div>
 
-            <button class="btn btn-outline-primary rounded-pill mt-2" onclick="cats()">Next</button>
+            <button class="btn btn-outline-dark shadow rounded-pill mt-2" onclick="cats()">Next</button>
         </div>
-
+        
+        
         <div>
-            <div class="spinner-card-wrapper">
-                <div class="card p-2 d-flex flex-column shadow-sm">
-                    <h5 class="text-center">Feeling bored today ?</h5>
+        <div class="spinner-card-wrapper">
+            <div class="card p-2 d-flex flex-column shadow-sm">
+                <h5 class="text-center">Feeling bored today ?</h5>
                     <div class="flex-grow-1">
                         <div class="alert alert-warning h-100" id="activity">
                         </div>
@@ -105,12 +106,25 @@
                 <div class="spinner-wrapper">
                     <div class="spinner none" id="spinner-3"></div>
                 </div>
-            </div>
-
-
-            <button class="btn btn-outline-dark rounded-pill mt-2" onclick="bored()">Next</button>
         </div>
 
+
+            <button class="btn btn-outline-dark shadow rounded-pill mt-2" onclick="bored()">Next</button>
+        </div>
+
+        <div>
+                    
+            <div class="spinner-card-wrapper">
+                <div class="card shadow-sm">
+                     <img src="" class="img-thumbnail random-image" alt="">
+                </div>
+                <div class="spinner-wrapper">
+                    <div class="spinner none" id="spinner-4"></div>
+                </div>
+            </div>
+
+            <button class="btn btn-outline-dark shadow rounded-pill mt-2" onclick="random()">Next</button>
+        </div>
       </div>
 
       <script>
@@ -170,10 +184,28 @@
         });
         };
 
+        const random = () =>{
+            activate_spinner('spinner-4');
+            fetch('https://random.imagecdn.app/v1/image?width=300&height=300&format=json').then(
+            function(response){
+                return response.json();
+            }
+        ).then(
+            function(data){
+             document.querySelector('.random-image').src = data.url;
+             deactivate_spinner('spinner-4');
+            }
+        ).catch(function(error){
+            console.log(error);
+        });
+        };
+        
+
         const refresh = () =>{
             dogs(); 
             cats();
             bored();
+            random();
         };
 
         refresh();
